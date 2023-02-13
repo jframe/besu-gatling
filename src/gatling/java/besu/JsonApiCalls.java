@@ -35,4 +35,16 @@ public class JsonApiCalls {
                 "id": #{id}
             }
             """;
+
+  public static final String  ethGetLogs =
+          """
+                {
+                    "jsonrpc": "2.0",
+                    "method": "eth_getLogs",
+                    "params": [{
+                        "blockHash":"#{blockHash}"
+                    }],
+                    "id": #{id}
+                }
+                """;
 }
