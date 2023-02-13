@@ -41,7 +41,7 @@ public class GetLogsSimulation extends Simulation {
     {
         System.out.println("Running Gatling Scenarios on " + baseUrl);
 
-        setUp(getLogsforLatest.injectOpen(constantUsersPerSec(2).during(Duration.ofSeconds(10))))
+        setUp(getLogsforLatest.injectOpen(constantUsersPerSec(2).during(Duration.ofMinutes(5))))
                 .protocols(httpProtocol);
     }
 }
