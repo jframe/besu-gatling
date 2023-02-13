@@ -15,7 +15,7 @@ import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 public class LatestBlockHashFeeder {
-    final Web3j web3 = Web3j.build(new HttpService(String.format("%s:%d",System.getProperty("besu-rpc-host", "localhost"), Integer.getInteger("besu-rpc-port", 8545))));
+    final Web3j web3 = Web3j.build(new HttpService(String.format("http://%s:%d",System.getProperty("besu-rpc-host", "localhost"), Integer.getInteger("besu-rpc-port", 8545))));
     public Iterator<Map<String, Object>> getLatestBlockhash() {
         return Stream.generate(
                         (Supplier<Map<String, Object>>)
