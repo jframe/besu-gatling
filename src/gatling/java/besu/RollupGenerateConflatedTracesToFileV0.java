@@ -1,29 +1,30 @@
 package besu;
 
+import besu.feeders.BlockRangeFeeder;
 import besu.feeders.LatestBlockHashFeeder;
-import io.gatling.javaapi.core.*;
-import io.gatling.javaapi.http.*;
+import io.gatling.javaapi.core.ScenarioBuilder;
+import io.gatling.javaapi.http.HttpProtocolBuilder;
 
 import java.time.Duration;
 
 import static besu.JsonApiCalls.ethGetLogs;
+import static besu.JsonApiCalls.rollupGenerateConflatedTracesToFileV0;
 import static io.gatling.javaapi.core.CoreDsl.StringBody;
-import static io.gatling.javaapi.core.CoreDsl.atOnceUsers;
 import static io.gatling.javaapi.core.CoreDsl.constantUsersPerSec;
 import static io.gatling.javaapi.core.CoreDsl.jsonPath;
 import static io.gatling.javaapi.core.CoreDsl.scenario;
 import static io.gatling.javaapi.http.HttpDsl.http;
 import static io.gatling.javaapi.http.HttpDsl.status;
 
-public class GetLogsSimulation extends AbstractBesuSimulation {
+public class RollupGenerateConflatedTracesToFileV0 extends AbstractBesuSimulation {
 
-    final ScenarioBuilder getLogsforLatest =
+    final ScenarioBuilder generateConflatedTracesTest =
             scenario("Get Logs for latest Block")
-                    .feed(new LatestBlockHashFeeder().getLatestBlockhash())
+                    .feed(new BlockRangeFeeder().getBlockRange())
                     .exec(
                             http("get Logs for latest Block")
                                     .post("/")
-                                    .body(StringBody(ethGetLogs))
+                                    .body(StringBody(rollupGenerateConflatedTracesToFileV0))
                                     .asJson()
                                     .check(status().is(200))
                                     .check(jsonPath("$.id").isEL("#{id}")));
@@ -38,7 +39,7 @@ public class GetLogsSimulation extends AbstractBesuSimulation {
     {
         System.out.println("Running Gatling Scenarios on " + baseUrl);
 
-        setUp(getLogsforLatest.injectOpen(constantUsersPerSec(2).during(Duration.ofMinutes(5))))
+        setUp(generateConflatedTracesTest.injectOpen(constantUsersPerSec(10).during(Duration.ofMinutes(5))))
                 .protocols(httpProtocol);
     }
 }

@@ -47,4 +47,14 @@ public class JsonApiCalls {
                     "id": #{id}
                 }
                 """;
+
+  public static final String  rollupGenerateConflatedTracesToFileV0 =
+          """
+                {
+                    "jsonrpc": "2.0",
+                    "method": "rollup_generateConflatedTracesToFileV0",
+                    "params": ["#{startBlock}","#{endBlock}", "6.16.0"],
+                    "id": #{id}
+                }
+                """;
 }

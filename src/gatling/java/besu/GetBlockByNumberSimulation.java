@@ -13,10 +13,7 @@ import io.gatling.javaapi.core.*;
 import java.math.BigInteger;
 import java.time.Duration;
 
-public class GetBlockByNumberSimulation extends Simulation {
-  final String host = System.getProperty("besu-rpc-host", "localhost");
-  final Integer port = Integer.getInteger("besu-rpc-port", 8545);
-  final String baseUrl = "http://" + host + ":" + port;
+public class GetBlockByNumberSimulation extends AbstractBesuSimulation {
 
   // will be updated on the first call of getBlockNumber scenario
   final RandomBlockNumberFeeder randomBlockNumberFeeder = new RandomBlockNumberFeeder();
