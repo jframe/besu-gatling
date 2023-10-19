@@ -1,13 +1,11 @@
 package besu;
 
 import besu.feeders.BlockRangeFeeder;
-import besu.feeders.LatestBlockHashFeeder;
 import io.gatling.javaapi.core.ScenarioBuilder;
 import io.gatling.javaapi.http.HttpProtocolBuilder;
 
 import java.time.Duration;
 
-import static besu.JsonApiCalls.ethGetLogs;
 import static besu.JsonApiCalls.rollupGenerateConflatedTracesToFileV0;
 import static io.gatling.javaapi.core.CoreDsl.StringBody;
 import static io.gatling.javaapi.core.CoreDsl.constantUsersPerSec;
@@ -39,7 +37,7 @@ public class RollupGenerateConflatedTracesToFileV0 extends AbstractBesuSimulatio
     {
         System.out.println("Running Gatling Scenarios on " + baseUrl);
 
-        setUp(generateConflatedTracesTest.injectOpen(constantUsersPerSec(10).during(Duration.ofMinutes(5))))
+        setUp(generateConflatedTracesTest.injectOpen(constantUsersPerSec(2).during(Duration.ofMinutes(5))))
                 .protocols(httpProtocol);
 
     }
