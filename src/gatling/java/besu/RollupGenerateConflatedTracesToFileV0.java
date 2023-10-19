@@ -19,10 +19,10 @@ import static io.gatling.javaapi.http.HttpDsl.status;
 public class RollupGenerateConflatedTracesToFileV0 extends AbstractBesuSimulation {
 
     final ScenarioBuilder generateConflatedTracesTest =
-            scenario("Get Logs for latest Block")
+            scenario("Generate Conflated traces")
                     .feed(new BlockRangeFeeder().getBlockRange())
                     .exec(
-                            http("get Logs for latest Block")
+                            http("Generate Conflated traces")
                                     .post("/")
                                     .body(StringBody(rollupGenerateConflatedTracesToFileV0))
                                     .asJson()
@@ -41,5 +41,6 @@ public class RollupGenerateConflatedTracesToFileV0 extends AbstractBesuSimulatio
 
         setUp(generateConflatedTracesTest.injectOpen(constantUsersPerSec(10).during(Duration.ofMinutes(5))))
                 .protocols(httpProtocol);
+
     }
 }
