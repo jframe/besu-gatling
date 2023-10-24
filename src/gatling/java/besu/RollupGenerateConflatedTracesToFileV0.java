@@ -8,7 +8,6 @@ import java.time.Duration;
 
 import static besu.JsonApiCalls.rollupGenerateConflatedTracesToFileV0;
 import static io.gatling.javaapi.core.CoreDsl.StringBody;
-import static io.gatling.javaapi.core.CoreDsl.atOnceUsers;
 import static io.gatling.javaapi.core.CoreDsl.constantUsersPerSec;
 import static io.gatling.javaapi.core.CoreDsl.jsonPath;
 import static io.gatling.javaapi.core.CoreDsl.scenario;
@@ -26,26 +25,20 @@ public class RollupGenerateConflatedTracesToFileV0 extends AbstractBesuSimulatio
                                     .body(StringBody(rollupGenerateConflatedTracesToFileV0))
                                     .asJson()
                                     .check(status().is(200))
-                                    .check(jsonPath("$.id").isEL("#{id}"))).pause(4);
+                                    .check(jsonPath("$.id").isEL("#{id}")));
 
     final HttpProtocolBuilder httpProtocol =  http.baseUrl(baseUrl)
             .acceptHeader("*/*")
-                                .acceptLanguageHeader("en-US,en;q=0.5")
-                                .acceptEncodingHeader("gzip, deflate, br")
-                                .contentTypeHeader("application/json")
-                                .userAgentHeader("Gatling Test");
+            .acceptLanguageHeader("en-US,en;q=0.5")
+            .acceptEncodingHeader("gzip, deflate, br")
+            .contentTypeHeader("application/json")
+            .userAgentHeader("Gatling Test");
 
     {
         System.out.println("Running Gatling Scenarios on " + baseUrl);
 
-        var scn = scenario("My Scenario")
-                .exec(http("My Request")
-                        .get("http://my-endpoint-url.com"))
-                .pause(4) ;// Pause for 4 seconds
-
-        setUp(
-                generateConflatedTracesTest.injectOpen(atOnceUsers(1)) // Injects a single user
-        ).protocols(httpProtocol).maxDuration(Duration.ofMinutes(10))  ;
+        setUp(generateConflatedTracesTest.injectOpen(constantUsersPerSec(1).during(Duration.ofMinutes(5))))
+                .protocols(httpProtocol);
 
     }
 }
