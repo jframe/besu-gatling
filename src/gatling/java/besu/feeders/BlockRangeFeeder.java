@@ -15,7 +15,7 @@ public class BlockRangeFeeder {
         return Stream.generate(
                         (Supplier<Map<String, Object>>)
                                 () -> {
-                                    Long startBlock = RandomUtils.nextLong(0, 1_700_000);
+                                    Long startBlock = RandomUtils.nextLong(0, 723_810);
                                     Long valueFromStartBlock = startBlock + 20;
                                     return Map.of(
                                             "id", RandomUtils.nextLong(),
