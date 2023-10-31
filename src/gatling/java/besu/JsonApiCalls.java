@@ -63,9 +63,9 @@ public class JsonApiCalls {
                 {
                     "jsonrpc": "2.0",
                     "method": "debug_traceTransaction",
-                    "params": [{
+                    "params": [
                         "#{transactionHash}"
-                    }],
+                    ],
                     "id": #{id}
                 }
                 """;
