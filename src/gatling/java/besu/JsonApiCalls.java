@@ -57,4 +57,16 @@ public class JsonApiCalls {
                     "id": #{id}
                 }
                 """;
+
+  public static final String  debugTraceTransaction =
+          """
+                {
+                    "jsonrpc": "2.0",
+                    "method": "debug_traceTransaction",
+                    "params": [{
+                        "#{transactionHash}"
+                    }],
+                    "id": #{id}
+                }
+                """;
 }
