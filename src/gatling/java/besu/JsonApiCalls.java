@@ -48,6 +48,18 @@ public class JsonApiCalls {
                 }
                 """;
 
+  public static final String  ethGetBlockReceipts =
+          """
+                {
+                    "jsonrpc": "2.0",
+                    "method": "eth_getBlockReceipts",
+                    "params": [{
+                        "blockHash":"#{blockHash}"
+                    }],
+                    "id": #{id}
+                }
+                """;
+
   public static final String  rollupGenerateConflatedTracesToFileV0 =
           """
                 {
